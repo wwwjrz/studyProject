@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //算术运算符
+
+    //二元运算符
+    console.log(1 + 2); //5 相加
+    console.log('2' + 2); // '23' 拼接
+    console.log('1' + '2'); //'12' 拼接
+    console.log(null + true); //1 相加  number(null) = 0    number(true) = 1    0+1 
+    console.log(false + undefined);// NaN 相加 number(false) =0  number(undefined) = NaN   0+NaN
+
+    //- * / % 先对操作数进行隐式转换，转换为number，再进行运算
+    console.log(null - true); // 0-1 = -1
+    console.log(true - 2);// 1- 2 = -1
+    console.log('23' - 2);//number('23') = 23-2 =21
+    console.log("2" * 2);//2 *2 =4
+    console.log(3 / 2);//1.5
+    console.log(3 % 2);//1
+    console.log(2 % 3);//2 小数 % 大数 = 小数  大数 % 小数 = 余数
+
+    //一元运算符
+    var a = 10;
+    var b;
+    b = a + 1;
+    console.log(b)//11
+
+    // 在js编程中，有太多类似的需求，所以js提供了一个++的运算符，专门用来实现 + 1的操作。如下：
+    var a = 5;
+    var c;
+    c = ++a; //变量a进行加1；  把值赋给c
+    console.log(c);//6
+    console.log(a);//6
+
+    // 我们发现：
+    // 对于++而言，它只需要一个操作数，所以它是一元（单目）运算符。
+    // 实际上，++并没有这么简单：
+    var a = 5;
+    var b;
+    b = a + 1;
+    console.log(b);//6
+    console.log(a);//5
+
+    var a = 5;
+    var c;
+    c = ++a; //变量a进行加1;  把值赋给c
+    console.log(c); //6
+    console.log(a);//6
+    // 自增，它的本意是将当前变量的值增加1，但是，它又额外的做了一件事情，它将加1之后的结果，又重复赋值给当前变量。所以说，++它是有副作用的，副作用就是重新赋值。
+
+    // 对于++，它又分为两种用法：
+    // 前加，比如++a
+    // 后加，比如a++
+    var a = 5;
+    var c;
+    c = ++a;//变量a进行加1，把值赋给c
+    console.log(c);//6
+    console.log(a)//6
+
+    var b = 5;
+    var d;
+    d = b++;//先b的原值拿到赋给d，然后对b进行 ++；
+    console.log(d)//5
+    console.log(b)//6
+    // 前加和后加的区别：
+    // 共同点：作用都生效了，当前变量的值已经发生变化
+    // 不同点：
+    // ++a先返回递增之后的a的值
+    // a++先返回a的原值，再返回递增之后的值
+    // 可以这么记：前加，类似于先斩后奏，也就是将自增之后的值立马用上。
+    // 而后加有点神经大条，反应迟钝，整个表达式的值还是自增之前的那个值。
+
+    // '--', 表示自减
+    // 与++类似，--有相同的用法：
+    // 前减：--a
+    // 后减：a--
+    var m = 10;
+    var n;
+    var l
+    n = --m;
+    console.log(m)// 9
+    console.log(n)//9
+
+    l = m--;
+    console.log(m) //8
+    console.log(l) //9
+
+    // 在实际开发中，++和--，使用非常普遍。尤其是在循环操作的时候。
+    // 说明：
+    // ++  --都会将值先隐式转为number，再进行自增自减
+
+
+    //赋值运算符注意点：
+    // =的优先级比较低
+    // =和==的区别
+    //=是赋值。==是进行比较
+    // +=可以用于数字或字符串，视情况而定
+    // 一个等号表示赋值，
+    // 两个等号才表示相等，
+    // 将赋值运算符=和算术运算符+、-、*、/、%结合到一起，可以形成复合的赋值运算符。如下：
+    //让a的值增加20，然后在赋值给在自己
+
+    //原来的写法
+    a = a + 20;
+    console.log(a); //30
+
+    //将上面的写法进行简化
+    a += 20 //50
+    console.log(a);
+
+    // -=
+    a -= 20;//相当于 a = a -20;
+    console.log(a);
+
+    //关系运算符  
+    //     相等运算符，使用两个=表示。
+    // 要判断的是两个变量的值，是否相等，如果相等，返回真，否则返回假。
+    var a = 10;
+    var b = 10;
+    var c = 15;
+    console.log(a == b); true
+    console.log(a == c); false
+
+    // 在使用==的时候，是不要考虑类型的，只要两个变量的值是相等，结果就相等。
+    var a = 10;
+    var b = 10;
+    var c = 15;
+    var d = '10';
+    console.log(typeof (a));//number
+    console.log(typeof (d));//string
+    console.log(a === b); //true
+    console.log(a === b); //true
+    console.log(a === c); //false
+    // 如果我的需求是，既要保证值相等，还要保证变量的类型也是相等的，js为我们提供了一个绝对等于的运算符 ===
+    var a = 10;
+    var b = 10;
+    var c = 15;
+    var d = '10';
+    console.log(typeof (a));//numnber
+    console.log(typeof (d));//string
+    console.log(a == d);//true
+    console.log(a === d);//false
+
+    // '注意：'
+    // =、==和===之间的区别。
+    // =表示赋值，==表示判断值是否相等，===表示判断绝对相等（值和类型）。
+    var x = 100;
+    // != 是 == 的反操作， ！== 是 === 的反操作
+    //!= 和 !==
+    var m = 10;
+    var n = 20;
+    var l = '10';
+    console.log(m != n);//true
+    console.log(m !== l); //true
+
+    // 在实际开发的时候，==、===和！=使用比较多。!==使用比较少。
+
+    // 比较的符号
+    // >， >=， <， <=
+    // 和数学中的比较是一样的。
+    var m = 10;
+    var n = 20;
+    var l = '10';
+    console.log(m > n)//false
+    console.log(m <= n)//true
+
+    // 全等运算符的规则：比较值同时比较类型
+    console.log(3 === 3);//true
+    console.log('3' === 3)//false 值是3 但是类型不同
+    console.log(NaN === NaN) //false
+
+    //> < >=  <=   ==   !=
+    // ；一般情况下，进行比较时，都隐式转为number,然后进行比较;
+    console.log("4" > 3) //true Mumber ("4")->4 >3
+    console.log(true < null) //false Number(true)= ==>1 Number (null)===>0  1<0
+    console.log(null <= 0) //true Number (nu1l)===>0 0<=0
+    console.log("3" == 3) //true Number ("3")===>3
+    console.log(true == 1) //true 1==1
+    console.log(true == "true") //false Number (true)===>1 Number ("true")===>MaN  1==NaN
+
+    //在相等运算符里，如果一端是null和undefined，不转换，直接比较。
+    //   即 null只有和undfined进行相等比较时为true,和其他任意内容进行比较都为false;
+    console.log(false == null)//false
+    console.log(null == undefined)//true
+    console.log(null == 0) //false
+    console.log(null >= 0) //true number(null) ===>0 0>=0
+
+    // 比较运算符两端都是字符串时；按照字符串的方式进行比较
+    console.log('23' > '5');//false  
+    console.log('10' > '1'); //true
+    console.log('23' < '25');//true
+
+    //逻辑运算符
+    // 逻辑与找假值；遇到假值就停下来，返回这个假的值；如果没有假值，则返回最后一个值；
+    console.log(3 && null); //null
+    console.log(0 && 5);//0
+    console.log(true && 5);//5
+
+    console.log(!0 && undefined && 5);//undefined
+    console.log(!3 && null && true);//false
+  </script>
+</body>
+
+</html>
