@@ -1,86 +1,178 @@
 <template>
-  <a-layout>
-    <a-layout-sider breakpoint="lg" collapsed-width="0" @collapse="onCollapse" @breakpoint="onBreakpoint">
-      <div class="logo" />
-      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
+  <a-layout style="min-height: 100vh">
+    <a-layout-sider v-model:collapsed="collapsed">
+      <div class="logo">
+        <img src="@/assets/logo.png" alt="">
+        <span v-if="!collapsed">后台管理系统</span>
+      </div>
+      <a-menu theme="dark" v-model:selectedKeys="selectedKeys" mode="inline">
         <a-menu-item key="1">
-          <user-outlined />
-          <span class="nav-text">nav 1</span>
+          <pie-chart-outlined />
+          <span>Option 1</span>
         </a-menu-item>
         <a-menu-item key="2">
-          <video-camera-outlined />
-          <span class="nav-text">nav 2</span>
+          <desktop-outlined />
+          <span>Option 2</span>
         </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span class="nav-text">nav 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <user-outlined />
-          <span class="nav-text">nav 4</span>
+        <a-sub-menu key="sub1">
+          <template #title>
+            <span>
+              <user-outlined />
+              <span>User</span>
+            </span>
+          </template>
+          <a-menu-item key="3">Tom</a-menu-item>
+          <a-menu-item key="4">Bill</a-menu-item>
+          <a-menu-item key="5">Alex</a-menu-item>
+        </a-sub-menu>
+        <a-sub-menu key="sub2">
+          <template #title>
+            <span>
+              <team-outlined />
+              <span>Team</span>
+            </span>
+          </template>
+          <a-menu-item key="6">Team 1</a-menu-item>
+          <a-menu-item key="8">Team 2</a-menu-item>
+        </a-sub-menu>
+        <a-menu-item key="9">
+          <file-outlined />
+          <span>File</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header :style="{ background: '#fff', padding: 0 }" />
-      <a-layout-content :style="{ margin: '24px 16px 0' }">
-        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">content</div>
+      <a-layout-header style="background: #fff; padding: 0">
+        <div class="a_head">
+          <div>
+            <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
+            <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+          </div>
+          <div class="userInfo">
+            <img class="img" src="@/assets/image/user/headSculpture.jpg" alt="">
+          </div>
+        </div>
+      </a-layout-header>
+      <a-layout-content style="margin: 0 16px">
+        <a-breadcrumb style="margin: 16px 0">
+          <a-breadcrumb-item>User</a-breadcrumb-item>
+          <a-breadcrumb-item>Bill</a-breadcrumb-item>
+        </a-breadcrumb>
+        <div class="page-content" :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+          Bill is a cat.
+        </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
+        @Jiang 所有
       </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
 <script lang="ts">
-  import {
+import {
+  PieChartOutlined,
+  DesktopOutlined,
+  UserOutlined,
+  TeamOutlined,
+  FileOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons-vue';
+import { defineComponent, ref } from 'vue';
+export default defineComponent({
+  components: {
+    PieChartOutlined,
+    DesktopOutlined,
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined
-  } from '@ant-design/icons-vue';
-  import {
-    defineComponent,
-    ref
-  } from 'vue';
-  export default defineComponent({
-    components: {
-      UserOutlined,
-      VideoCameraOutlined,
-      UploadOutlined,
-    },
-    setup() {
-      const onCollapse = (collapsed: boolean, type: string) => {
-        console.log(collapsed, type);
-      };
-
-      const onBreakpoint = (broken: boolean) => {
-        console.log(broken);
-      };
-
-      return {
-        selectedKeys: ref < string[] > (['4']),
-        onCollapse,
-        onBreakpoint,
-      };
-    },
-  });
+    TeamOutlined,
+    FileOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+  },
+  data() {
+    return {
+      collapsed: ref<boolean>(false),
+      selectedKeys: ref<string[]>(['1']),
+    };
+  },
+});
 </script>
-<style>
-  #components-layout-demo-responsive .logo {
+<style lang="less" scoped>
+.page-content {
+  height: calc(100vh - 160px);
+}
+
+.ant-layout-footer {
+  padding: 10px 50px !important;
+}
+
+
+.logo {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  gap: 5px;
+
+  span {
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+
+  img {
     height: 32px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px;
   }
+}
 
-  .site-layout-sub-header-background {
-    background: #fff;
-  }
+.a_head {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 16px;
 
-  .site-layout-background {
-    background: #fff;
-  }
+  .userInfo {
+    display: flex;
+    align-items: center;
 
-  [data-theme='dark'] .site-layout-sub-header-background {
-    background: #141414;
+    img {
+      height: 50px;
+      border-radius: 5px;
+      display: block;
+    }
   }
+}
+
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.trigger {
+  font-size: 18px !important;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+// [data-theme='dark'] .site-layout .site-layout-background {
+//   background: #141414;
+
+
+
+//   .logo {
+//     height: 32px;
+//     background: rgba(255, 255, 255, 0.3);
+//     margin: 16px;
+//   }
+
+//   .site-layout .site-layout-background {
+//     background: #fff;
+//   }
+// }
 </style>
