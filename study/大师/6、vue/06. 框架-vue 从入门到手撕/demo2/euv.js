@@ -2,7 +2,7 @@
  * 观察某个对象的所有属性
  * @param {Object} obj
  */
-function observe(obj) {
+function observe (obj) {
   for (const key in obj) {
     let internalValue = obj[key];
     let funcs = [];
@@ -25,7 +25,7 @@ function observe(obj) {
   }
 }
 
-function autorun(fn) {
+function autorun (fn) {
   window.__func = fn;
   fn();
   window.__func = null;
