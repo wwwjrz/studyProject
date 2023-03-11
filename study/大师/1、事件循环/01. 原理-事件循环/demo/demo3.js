@@ -1,4 +1,4 @@
-function a() {
+function a () {
   console.log(1);
   Promise.resolve().then(function () {
     console.log(2);
