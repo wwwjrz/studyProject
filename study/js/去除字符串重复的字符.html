@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function removefn (str) {
+      let result = ''
+      for (let i = 0; i < str.length; i++) {
+        if (!!!~result.indexOf(str[i])) {
+          result += str[i]
+        }
+      }
+      return result
+    }
+    let obj = { a: 1, b: 2 }
+    function removefn1 (str) {
+      var result = Array.prototype.filter.call(str, function (char, index, arr) {
+        return arr[index] === 'a'
+        // return arr.indexOf(char) === index;
+      })
+      return result
+    }
+    console.log(obj[removefn1(Object.keys(obj))])
+
+
+    function setData (str) {
+      let result = new Set(str.split(''))
+      return [...result].join('')
+    }
+    console.log(setData('aaabbbccc'))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+  <script src="./js/data.js"></script>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  body {
+    background: #000;
+    color: #666;
+    text-align: center;
+  }
+
+  audio {
+    width: 600px;
+    margin: 20px 0;
+  }
+
+  .box {
+    height: 300px;
+    overflow: hidden;
+  }
+
+  ul {
+    transition: all .6s;
+  }
+
+  ul li {
+    height: 35px;
+    line-height: 35px;
+    transition: all .6s;
+  }
+
+  ul li.active {
+    transform: scale(1.4);
+    color: #fff;
+  }
+</style>
+
+<body>
+  <audio controls src="./assets/music.mp3"></audio>
+  <div class="box">
+    <ul>
+    </ul>
+  </div>
+</body>
+<script>
+  let dom = {
+    audio: document.querySelector('audio'),
+    ul: document.querySelector('.box ul'),
+    box: document.querySelector('.box')
+  }
+  function pauseLrc (lrc) {
+    let lrcDataOne = lrc.split('\n')
+    let result = []
+    for (let i = 0; i < lrcDataOne.length; i++) {
+      let lrcDataTwo = lrcDataOne[i].split(']')
+      result.push({
+        text: lrcDataTwo[1],
+        time: pauseTime(lrcDataTwo[0].substring(1))
+      })
+    }
+    return result
+  }
+  function pauseTime (time) {
+    let datas = time.split(':')
+    return +datas[0] * 60 + +datas[1]
+  }
+  let lrcData = pauseLrc(lrc)
+
+  function findIndex () {
+    let times = lrcData.findIndex(e => { return e.time > dom.audio.currentTime }) - 1
+    if (times == -2) {
+      return lrcData.length
+    } else {
+      return times
+    }
+  }
+
+  function setUlPosition () {
+    let indexs = findIndex()
+    let liHeight = dom.ul.children[0].clientHeight
+    let boxHeight = dom.box.clientHeight
+    let dataPosition = liHeight * indexs - boxHeight / 2
+    let maxHeight = dom.ul.clientHeight - boxHeight
+    if (dataPosition < 0) {
+      dataPosition = 0
+    }
+    if (dataPosition > maxHeight) {
+      dataPosition = maxHeight
+    }
+    let li = dom.ul.querySelector('.active')
+    if (li) {
+      li.classList.remove('active')
+    }
+    li = dom.ul.children[indexs]
+    if (li) {
+      li.classList.add('active')
+    }
+    dom.ul.style.transform = `translateY(-${dataPosition}px)`
+  }
+
+  function xuanData () {
+    let domFrangmes = document.createDocumentFragment()
+    let datas = []
+    for (let i = 0; i < lrcData.length; i++) {
+      let li = document.createElement('li')
+      li.textContent = lrcData[i].text
+      domFrangmes.appendChild(li)
+    }
+    dom.ul.appendChild(domFrangmes)
+  }
+  xuanData()
+
+  dom.audio.addEventListener('timeupdate',setUlPosition)
+</script>
+
+</html>

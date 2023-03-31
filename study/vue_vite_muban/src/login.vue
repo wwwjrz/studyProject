@@ -47,72 +47,67 @@
           />
           <label>密码</label>
         </div>
-        <a-button @click="Login" :loading="btnLoading">登录</a-button>
+        <el-button type="primary" @click="Login" v-loading="btnLoading"
+          >登录</el-button
+        >
       </div>
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script setup>
+
 import {
   ref,
   reactive,
   onMounted,
   nextTick,
   onUnmounted,
-  getCurrentInstance,
+  getCurrentInstance
 } from 'vue'
 import { useRouter } from 'vue-router'
 const { proxy } = getCurrentInstance()
 const router = useRouter()
-let ups = ref('')
+let ups = ref('');
 let XY = reactive({
   left: 5,
-  top: 5,
-})
+  top: 5
+});
 
-let btnLoading: Boolean = false
+let btnLoading = false
 
 onMounted(() => {
   nextTick(() => {
-    mouseUpLisenter()
-  })
-})
+    mouseUpLisenter();
+  });
+});
 
-function mouseUpLisenter() {
-  document.addEventListener('mousemove', setXY)
-}
+function mouseUpLisenter () {
+  document.addEventListener('mousemove', setXY);
+};
 
-function setXY(e: MouseEvent): void {
-  let dw = document.documentElement.clientWidth / 10
-  let dh = document.documentElement.clientHeight / 18
-  let x = e.pageX / dw
-  let y = e.pageY / dh
+function setXY (e) {
+  let dw = document.documentElement.clientWidth / 10;
+  let dh = document.documentElement.clientHeight / 18;
+  let x = e.pageX / dw;
+  let y = e.pageY / dh;
   XY.left = x
   XY.top = y
-}
+};
 
-function Login() {
+function Login () {
   btnLoading = true
   setTimeout(() => {
     btnLoading = false
-    setTimeout(() => {
-      proxy.$formatTime('success', '提示', '登录成功')
-      router.push('/homePage')
-    }, 100)
-  }, 1000)
-  // this.setToken()
-}
-// function openNotificationWithIcon(type: unknown, message: unknown, description: unknown) {
-//   notification[type]({
-//     message,
-//     description,
-//   });
-// }
+    proxy.$openNot('success', '提示', '登录成功')
+    router.push('/homePage')
+  }, 1000);
+};
 
 onUnmounted(() => {
-  document.removeEventListener('mousemove', setXY)
-})
+  document.removeEventListener('mousemove', setXY);
+});
+
 </script>
 <style scoped lang="less">
-@import '../../assets/styles/login.css';
+@import './assets/style/login.css';
 </style>

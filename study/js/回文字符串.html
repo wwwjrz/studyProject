@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //什么是回文字符串
+    // 关于中心做对称的字符串 abcdefedcba abcdeffedcba
+
+    //将字符串从前往后，以及从后往前逐个进行比较，如果比较到中间位，字符都是一样的，那么就是回文字符串，否则就不是
+    function isPalindromicStr (str) {
+      if (!str.length) return false
+      str = str.toLowerCase().split('')
+      start = 0
+      end = str.length - 1;
+      while (start < end) {
+        if (str[start] == str[end]) {
+          start++
+          end--
+        } else {
+          return false
+        }
+      }
+      return true
+    }
+    console.log(isPalindromicStr('abccba'))
+  </script>
+</body>
+
+</html>
