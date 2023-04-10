@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+ * 数组去重
+ * 原始值使用严格相等比较
+ * 对象值递归比较所有属性，属性数量和属性名称
+ * 数组中的对象均为plain object
+ * @param {Array} arr
+ * @return {Array}
+ */
+    function uniqueArray (array) {
+      // 暂存
+      let result = []
+      // 遍历数组所有元素
+      for (let i = 0; i < array.length; i++) {
+        // 标记 result 中是否存在与 array 中相等的元素
+        let isHas = false
+        for (let j = 0; j < result.length; j++) {
+          if (isEquals(result[j], array[i])) {
+            isHas = true
+          }
+        }
+        if (!isHas) {
+          result.push(array[i])
+        }
+      }
+      return result
+    }
+    function isEquals (pre, cur) {
+      // object类型
+      if (isObject(pre) && isObject(cur)) {
+        // 地址相等则 相等
+        if (pre === cur) {
+          return true
+        }
+        // 两个都是数组
+        if (pre instanceof Array && cur instanceof Array) {
+          return isArrayEquals(pre, cur)
+        }
+        // 两个都是对象
+        if (pre instanceof Object && cur instanceof Object) {
+          return isObjectEquals(pre, cur)
+        }
+        // 一个数组一个对象直接不等
+        return false
+        // number string fucntion undefined null，直接判断是否全等
+      } else {
+        if (pre === cur) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
+    function isObject (val) {
+      return typeof val === "object" && val !== null
+    }
+    // 判断数组相等
+    function isArrayEquals (preArr, curArr) {
+      if (preArr.length === curArr.length) {
+        // 长度为 0 默认相等
+        if (preArr.length === 0) return true
+        // 如果上一个数组在下一个数组中找到相等的值则向里面 push 一个数
+        let isEqual = []
+        for (let i = 0; i < preArr.length; i++) {
+          for (let j = 0; j < curArr.length; j++) {
+            if (isEquals(preArr[i], curArr[j])) {
+              isEqual.push(true)
+              break
+            }
+          }
+        }
+        // 两个数组长度相等则说明全等
+        if (isEqual.length === preArr.length) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    }
+    // 判断对象相等
+    function isObjectEquals (preObj, curObj) {
+      const preKyes = Object.keys(preObj)
+      const curKeys = Object.keys(curObj)
+      // 两个对象长度一样才比较，不一样说明不相等，直接 return false
+      if (preKyes.length === curKeys.length) {
+        if (preKyes.length === 0) return true
+        // 两个对象 key 相等的集合
+        let has = []
+        for (let i = 0; i < preKyes.length; i++) {
+          for (let j = 0; j < curKeys.length; j++) {
+            // pre 中的 key 与 cur 中的 key 有一个相等则 push 一个数
+            if (preKyes[i] === curKeys[j]) {
+              has.push(true)
+            }
+          }
+        }
+        // 两者长度相对则说明 key 全部一样，接下来在比他们的值
+        if (has.length === preKyes.length) {
+          // 有一个值相等则向里面 push 一个数
+          let isEqual = []
+          for (let k in preObj) {
+            if (isEquals(preObj[k], curObj[k])) {
+              isEqual.push(true)
+            }
+          }
+          if (isEqual.length === preKyes.length) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    }
+    let arr = ['a', 'a', 1, '1', { a: { b: [{ c: 1 }, 2, 3] } }, { a: { b: [{ c: 1 }, 2, 3] } }, [1, 2, 3], [1, 2, 3]]
+    console.log(uniqueArray(arr))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 所有对象都是通过 new 函数 创建
+    // 所有的函数也是对象
+    // 函数里可以有属性
+    // 所有对象都是引用类型
+    // 保存的是地址，赋值也是地址，属于引用传递
+    // function test () {
+    //   return {}
+    // }
+    // console.log(new test())
+
+    //原型
+ 
+    // 所有函数都有一个属性：prototype，称之为函数原型
+
+    // 默认情况下，prototype是一个普通的Object对象
+ 
+    //默认情况下，Prototype中有一个属性，constructor，它也是一个对象，它指向构造函数本身。
+
+    // 隐式原型
+
+    // __proto__
+
+    // 所有的对象都有一个属性：__proto__ 称之为隐式原型 
+    // 默认情况下，隐式原型指向创建该对象的函数的原型。
+
+    // 当访问一个对象的成员时：
+    // 1.看该对象自身是否拥有该成员，如果有直接使用
+    // 2.看该对象的隐式原型是否拥有该成员，如果有直接使用
+    // 3.在原型链中，依次查找
+ 
+    // 猴子布丁：在函数原型中加入该成员，以增强起对象的功能，猴子布丁会导致原型污染，使用需谨慎
+
+    // 原型链
+
+    // 1.Function的__proto__指向自身的prototype
+    // 2.Object的prototype的__proto__指向Null
+
+
+  </script>
+</body>
+
+</html>
