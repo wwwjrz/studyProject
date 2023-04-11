@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    background: #000;
+  }
+
+  .container {
+    margin-top: 50px;
+    text-align: center;
+    background-color: #000;
+    filter: contrast(30);
+  }
+
+  .text {
+    font-size: 100px;
+    color: #fff;
+    animation: showup 3s forwards;
+  }
+
+  @keyframes showup {
+    from {
+      letter-spacing: -50px;
+      filter: blur(10px);
+    }
+
+    to {
+      letter-spacing: 10px;
+      filter: blur(2px);
+    }
+  }
+</style>
+
+<body>
+  <div class="container">
+    <span class="text">Duyi Education</span>
+  </div>
+  <script>
+    function eater () {
+      var food = ''
+      var obj = {
+        eat: function () {
+          console.log('我今天吃' + food)
+          food = '';
+        },
+        push: function (myfood) {
+          food = myfood
+        }
+      }
+      return obj
+    }
+    var eat1 = eater()
+    eat1.push('12')
+    eat1.eat()
+    // 一、闭包的漏洞，使用原型
+
+    // var o = (function () {
+    //   var obj = {
+    //     a: 1,
+    //     b: 2
+    //   }
+    //   //防止被外面修改
+    //   // Object.setPrototypeOf(obj,null)
+    //   return {
+    //     get: function (k) {
+    //       // if(obj.hasOwnProperty(k)){
+
+    //       // }
+    //       return obj[k]
+    //     }
+    //   }
+    // })()
+    // //如何在不改变上面代码的情况下，修改obj对象
+    // // Object.prototype.hasOwnProperty = function () {
+    // //   return '123'
+    // // }
+    // Object.defineProperty(Object.prototype, 'abc', {
+    //   get () {
+    //     return this
+    //   }
+    // })
+    // var obj2 = o.get('abc')
+    // obj2.c = 2
+    // obj2.d = 23
+    // console.log(obj2)
+
+    // 二、？位置怎么写才能输出true
+
+    // var a = {
+    //   n: 1,
+    //   valueOf: function () {
+    //     return this.n++
+    //   }
+    // }
+    // console.log(a == 1 && a == 2 && a == 3)
+    // var a = {
+    //   n: 0,
+    //   valueOf: function () {
+    //     return Math.pow(2, this.n++)
+    //   }
+    // }
+    // console.log(a == 1 && a == 2 && a == 3)
+
+    // 三、优化代码分支
+
+    function speak (name) {
+      const map = [
+        [
+          () => name.includes('牛'),
+          () => console.log('牛叫')
+        ],
+        [
+          () => name.endsWith('虎') && name.length <= 3,
+          () => console.log('虎')
+        ]
+      ]
+      const target = map.find((m) => m[0]())
+      if (target) {
+        target[1]()
+      } else {
+        console.log('不知道')
+      }
+    }
+  </script>
+</body>
+
+</html>
