@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<style type="text/css">
+		.box {
+			position: relative;
+			left: 0;
+			top: 0;
+			width: 300px;
+			height: 300px;
+		}
+
+		#box2,
+		#boxs {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		#boxs {
+			background: red;
+			z-index: 2;
+		}
+
+		#box2 {
+			background: black;
+		}
+	</style>
+	<body>
+		<div class="box">
+			<div id="boxs"></div>
+			<div id="box2"></div>
+		</div>
+		<script>
+			let drag = false
+			boxs.onmousedown = function(ev) {
+				drag = true;
+				this.mouseStartX = ev.pageX;
+				this.mouseStartY = ev.pageY;
+				this.startX = boxs.offsetLeft;
+				this.startY = boxs.offsetTop;
+			}
+			boxs.onmousemove = function(ev) {
+				if (!drag) return false;
+				let curLeft = ev.pageX - this.mouseStartX + this.startX;
+				let curTop = ev.pageY - this.mouseStartY + this.startY;
+				boxs.style.left = `${curLeft}px`;
+				boxs.style.top = `${curTop}px`;
+			}
+			boxs.onmouseup = function(ev) {
+				drag = false;
+				let curLeft = ev.pageX - this.mouseStartX + this.startX;
+				let curTop = ev.pageY - this.mouseStartY + this.startY;
+				box2.style.left = `${curLeft}px`;
+				box2.style.top = `${curTop}px`;
+			}
+		</script>
+	</body>
+
+</html>

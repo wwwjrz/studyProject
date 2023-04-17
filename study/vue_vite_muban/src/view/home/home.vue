@@ -70,7 +70,11 @@
             </el-dropdown>
           </div>
         </el-header>
-        <el-main><router-view></router-view></el-main>
+        <el-main>
+          <Transition>
+          <router-view></router-view>
+          </Transition>
+        </el-main>
       </el-container>
     </el-container>
   </div>

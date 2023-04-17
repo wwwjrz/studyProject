@@ -74,6 +74,7 @@
     return result
   }
   function pauseTime (time) {
+    console.log(time)
     let datas = time.split(':')
     return +datas[0] * 60 + +datas[1]
   }
@@ -90,6 +91,7 @@
 
   function setUlPosition () {
     let indexs = findIndex()
+    console.log(indexs)
     let liHeight = dom.ul.children[0].clientHeight
     let boxHeight = dom.box.clientHeight
     let dataPosition = liHeight * indexs - boxHeight / 2
@@ -123,7 +125,7 @@
   }
   xuanData()
 
-  dom.audio.addEventListener('timeupdate',setUlPosition)
+  dom.audio.addEventListener('timeupdate', setUlPosition)
 </script>
 
 </html>
