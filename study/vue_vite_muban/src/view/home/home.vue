@@ -13,7 +13,7 @@
           <img src="../../assets/vue.svg" alt="" />
           <span v-if="!isCollapse" style="white-space:nowrap">项目</span>
         </div>
-          <myMenu :data="navList"></myMenu>
+          <myMenus :data="navList"></myMenus>
         </el-menu>
       </el-aside>
       <el-container>
@@ -51,7 +51,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import bread from '../../components/Breadcrumb/index.vue'
-import myMenu from '../../components/myMenu/myMenu.vue'
+import myMenus from '../../components/myMenu/abc.vue'
 const isCollapse = ref(true)
 let navList = reactive([
   { id: 1, name: "项目管理", path: "/projectManagement", icon: "Plus", children: [{ id: '1-1', name: '用户', path: '/', icon: "Plus", children: [] }, { id: '1-2', name: '权限', path: '/', icon: "Plus", children: [] }] },

@@ -16,7 +16,7 @@
         </el-icon>
         <span>{{ item.name }}</span>
       </template>
-      <myMenu :data="item.children"></myMenu>
+      <abc :data="item.children"></abc>
     </el-sub-menu>
     <!-- 情况二：没子集的情况： -->
     <el-menu-item v-else :index="item.path">
