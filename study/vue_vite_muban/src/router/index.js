@@ -10,18 +10,18 @@ let routes = [
   {
     path: '/login',
     name: 'login',
-    component: import('../login.vue'),
+    component: () => import('../login.vue'),
   },
   {
     path: '/homePage',
     name: 'homePage',
-    component: import('../view/home/home.vue'),
+    component: () => import('../view/home/home.vue'),
     redirect: 'homePage/index',
     children: [
       {
         path: 'index',
         name: 'homeIndex',
-        component: import('../view/index/index.vue')
+        component: () => import('../view/index/index.vue')
       }
     ]
   }

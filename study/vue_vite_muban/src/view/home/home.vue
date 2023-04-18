@@ -2,47 +2,18 @@
   <div class="common-layout">
     <el-container>
       <el-aside width="collapse">
-        <div class="logo">
-          <img src="../../assets/vue.svg" alt="" />
-          <span v-if="!isCollapse">项目</span>
-        </div>
+        
         <el-menu
+          :router="true"
           default-active="2"
           class="el-menu-vertical"
           :collapse="isCollapse"
-          @open="handleOpen"
-          @close="handleClose"
         >
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><location /></el-icon>
-              <span>Navigator One</span>
-            </template>
-            <el-menu-item-group>
-              <template #title><span>Group One</span></template>
-              <el-menu-item index="1-1">item one</el-menu-item>
-              <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-              <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-              <template #title><span>item four</span></template>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-          <el-menu-item index="2">
-            <el-icon><icon-menu /></el-icon>
-            <template #title>Navigator Two</template>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <el-icon><document /></el-icon>
-            <template #title>Navigator Three</template>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <el-icon><setting /></el-icon>
-            <template #title>Navigator Four</template>
-          </el-menu-item>
+        <div class="logo" slot="title">
+          <img src="../../assets/vue.svg" alt="" />
+          <span v-if="!isCollapse" style="white-space:nowrap">项目</span>
+        </div>
+          <myMenu :data="navList"></myMenu>
         </el-menu>
       </el-aside>
       <el-container>
@@ -71,24 +42,21 @@
           </div>
         </el-header>
         <el-main>
-          <Transition>
           <router-view></router-view>
-          </Transition>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import bread from '../../components/Breadcrumb/index.vue'
+import myMenu from '../../components/myMenu/myMenu.vue'
 const isCollapse = ref(true)
-const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
-}
+let navList = reactive([
+  { id: 1, name: "项目管理", path: "/projectManagement", icon: "Plus", children: [{ id: '1-1', name: '用户', path: '/', icon: "Plus", children: [] }, { id: '1-2', name: '权限', path: '/', icon: "Plus", children: [] }] },
+  { id: 2, name: "用户管理", path: "/administratorManagement", icon: "UserFilled", children: [] },
+])
 </script>
 <style lang="less" scoped>
 .el-container {
