@@ -1,8 +1,11 @@
 <template>
   <el-breadcrumb separator-icon="ArrowRight">
-    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-    <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+    <el-breadcrumb-item v-for="(item, index) in dataList" :key="index" :to="index == 0 && item.path">{{ item.meta.name
+    }}</el-breadcrumb-item>
   </el-breadcrumb>
-</template>
+</template> 
+<script setup>
+defineProps({
+  dataList: Array,
+})
+</script>

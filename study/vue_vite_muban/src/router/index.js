@@ -12,17 +12,43 @@ let routes = [
     name: 'login',
     component: () => import('../login.vue'),
   },
+  
   {
     path: '/homePage',
     name: 'homePage',
     component: () => import('../view/home/home.vue'),
-    redirect: 'homePage/index',
+    redirect: '/index',
+    meta:{
+      name:'首页'
+    },
     children: [
       {
-        path: 'index',
+        path:'/index',
+        name:'Index',
+        component:() => import('../view/index/index.vue'),
+        meta:{
+          isTap:true
+        }
+      },
+      {
+        path: 'element',
         name: 'homeIndex',
-        component: () => import('../view/index/index.vue')
-      }
+        component: () => import('../view/element/element.vue'),
+        meta:{
+          name:'组件'
+        },
+        children: [
+          {
+            path: '/element/skeleton',
+            name: 'skeleton',
+            meta:{
+              name:'骨架屏'
+            },
+            component: () => import('../view/element/skeleton/skeleton.vue')
+          }
+        ]
+      },
+
     ]
   }
 ]

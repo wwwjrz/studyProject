@@ -3,6 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import App from './App.vue'
+import Directives from '@/directives';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -22,5 +23,6 @@ function openElNotification (type, title, message) {
 
 
 app.use(ElementPlus)
+app.use(Directives)
 app.use(router)
 app.mount('#app')
