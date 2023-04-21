@@ -7,10 +7,9 @@
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
 -->
 <template>
-  <div
-    style="height: 400px; margin-top: 20px"
-    ref="liveChart"
-  ></div>
+  <h2> {{ titles }}</h2>
+  <div style="height: 400px; margin-top: 20px;margin-top:-20px" ref="liveChart"></div>
+ 
 </template>
 
 <script setup>
@@ -24,7 +23,16 @@ import { BarChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import * as dayjs from 'dayjs'
 import { unwarp } from '@/utils'
-import { onMounted, ref, onUnmounted, onBeforeUnmount } from 'vue'
+import {
+  onMounted,
+  ref,
+  onUnmounted,
+  onBeforeUnmount,
+  computed,
+  getCurrentInstance,
+} from 'vue'
+
+const { proxy } = getCurrentInstance()
 
 /**
  * @description: 生成20条数据
@@ -45,6 +53,10 @@ const dataList = () => {
   }
 }
 
+const titles = computed(() => {
+  return proxy.$t('menus.userVisits')
+})
+
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -58,9 +70,6 @@ let timer = null
 
 let $_dataList = dataList()
 let option = {
-  title: {
-    text: '用户访问量',
-  },
   grid: {
     left: '0',
     right: '0',
@@ -123,7 +132,7 @@ onUnmounted(() => {
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize',resizeChart)
+  window.removeEventListener('resize', resizeChart)
 })
 </script>
 
