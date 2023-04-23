@@ -7,6 +7,7 @@
  * @FilePath: \vue3-element-admin\src\components\dashboard\LiveChart.vue
 -->
 <template>
+<div>
   <div class="numList">
     <div class="numItem">
       <el-icon>
@@ -73,6 +74,7 @@
   </div>
   <!-- <div class="zhuti" :style="{'color':color}">主题色：{{ color }}</div>
   <el-button @click="editColor">修改主题</el-button> -->
+</div>
 </template>
 
 <script setup>

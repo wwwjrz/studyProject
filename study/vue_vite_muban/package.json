@@ -12,6 +12,7 @@
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.1.0",
     "@vuemap/vue-amap": "^2.0.5",
+    "animate.css": "^4.1.1",
     "dayjs": "^1.11.7",
     "echarts": "^5.4.2",
     "element-plus": "^2.3.1",

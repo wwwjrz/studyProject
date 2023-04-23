@@ -1,5 +1,7 @@
 <template>
-  <div class="toolbar">
+    
+  <div class="map-page-container">
+    <div class="toolbar">
     <el-button type="primary" @click="switchVisible('threeDvisible')">
       {{ objStr.threeDvisible ? '隐藏3D' : '显示3D' }}
     </el-button>
@@ -7,7 +9,6 @@
       {{ objStr.districtVisible ? '隐藏行政区' : '显示行政区' }}
     </el-button>
   </div>
-  <div class="map-page-container">
     <el-amap
       :center="center"
       :zoom="zoom"

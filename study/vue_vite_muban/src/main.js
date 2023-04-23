@@ -10,6 +10,7 @@ import i18n from './locales/index'
 import pinia from './stores'
 import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap';
 import '@vuemap/vue-amap/dist/style.css'
+import 'animate.css';
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)

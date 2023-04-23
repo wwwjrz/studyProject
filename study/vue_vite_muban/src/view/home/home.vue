@@ -48,7 +48,15 @@
           </div>
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <router-view v-slot="{ Component, route }">
+            <Transition
+              mode="out-in"
+              leave-active-class="animate__animated animate__backOutDown"
+              enter-active-class="animate__animated animate__backInDown"
+            >
+              <component :is="Component" :key="route.path" />
+            </Transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
