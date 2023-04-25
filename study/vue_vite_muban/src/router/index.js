@@ -65,6 +65,24 @@ let routes = [
             component: () => import('../view/AMAP/trajectory/trajectory.vue')
           }
         ]
+      },
+      {
+        path:'case',
+        name:'case',
+        component:() => import('../view/case/case.vue'),
+        meta:{
+          name:'案例'
+        },
+        children:[
+          {
+            path: '/case/lyric',
+            name: 'lyric',
+            meta: {
+              name: '基础功能'
+            },
+            component: () => import('../view/case/lyric/lyric.vue')
+          }
+        ]
       }
 
     ]

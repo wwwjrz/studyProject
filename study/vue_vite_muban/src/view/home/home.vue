@@ -162,6 +162,21 @@ let navList = reactive([
       },
     ],
   },
+  {
+    id: 3,
+    name: '案例',
+    path: '/case',
+    icon: 'Menu',
+    children: [
+      {
+        id: '3-1',
+        name: '歌词',
+        path: '/case/lyric',
+        icon: 'Headset',
+        children: [],
+      },
+    ],
+  },
 ])
 </script>
 <style lang="less" scoped>
