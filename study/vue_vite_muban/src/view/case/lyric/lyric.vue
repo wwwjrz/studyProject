@@ -17,6 +17,8 @@
         :max="duration"
         @input="sliderStop"
         :format-tooltip="(val) => transTime(val)"
+        @mousedown.native="isChange = true"
+        @mouseup.native="isChange = false"
       ></el-slider>
       <div>{{ transTime(currentTime) }} / {{ transTime(duration) }}</div>
     </div>
@@ -46,7 +48,7 @@
   </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref,onBeforeUnmount } from 'vue'
 import lrc from './data.js'
 const audio = ref(null)
 const container = ref(null)
@@ -179,25 +181,34 @@ const transTime = (time) => {
 }
 //正在被拖动时改变当前播放值
 const sliderStop = (value) => {
-  if (!isChange.value) {
-    console.log(value)
-    audio.value.currentTime = value
-    playSetStatus(true)
-  } else {
-    isChange.value = true
+  audio.value.currentTime = value
+  playSetStatus(true)
+}
+
+const addMounted = (e) => {
+  if(e){
+    audio.value.addEventListener('timeupdate', setOffset)
+  audio.value.addEventListener('play', play)
+  audio.value.addEventListener('pause', pause)
+  }else{
+    audio.value.removeEventListener('timeupdate', setOffset)
+  audio.value.removeEventListener('play', play)
+  audio.value.removeEventListener('pause', pause)
   }
+  
 }
 
 onMounted(() => {
   containerHeight = container.value.clientHeight
   liHeight = ulList.value.children[0].clientHeight
   maxOffset = ulList.value.clientHeight - containerHeight
-  audio.value.addEventListener('timeupdate', setOffset)
-  audio.value.addEventListener('play', play)
-  audio.value.addEventListener('pause', pause)
+  addMounted(true)
   setTimeout(() => {
     duration.value = +audio.value.duration.toFixed(2)
   }, 500)
+})
+onBeforeUnmount(()=>{
+  addMounted(false)
 })
 </script>
 <style lang="less" scoped>
