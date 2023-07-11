@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Hello World</h1>
+  <!-- 
+    为什么要放在元素尾部
+      1、浏览器从上到下解析这个文件，所以如果把这个脚本元素放在头部部分，那里如果有很多javaScript代码，因此浏览器
+      会忙于解析和执行该javascript代码，并且他无法呈现页面内容，因此这会造成糟糕的用户体验，用户会看到网页是白色的
+      或空白的，当浏览器忙于解析和执行javascript时
+      2、我们在脚本元素之间的代码几乎总是需要与此网页上的元素对话，例如要显示或隐藏一些元素，因此通过在body部分末尾添加代码，
+      我们将确信所有这些元素都由浏览器呈现，
+   -->
+  <script src="index.js"></script>
+</body>
+
+</html>

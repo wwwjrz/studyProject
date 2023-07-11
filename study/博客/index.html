@@ -9,7 +9,45 @@
 </head>
 
 <body>
-  测试
+  <script>
+    let arr = [
+      'abc123qwe45',
+      '2bb12qqwe45',
+      '3bc123qwe45',
+      '2bc12qqwe45',
+      '5bc123qwe45',
+    ]
+    function setArr (list) {
+      if (!list || list.length == 0) {
+        return '错误数组'
+      }
+      if (list.length == 1) {
+        return list[0]
+      }
+      let setOne = new Set()
+      let setTwo = new Set()
+      let setThree = new Set()
+      let list1 = []
+      let list2 = []
+      list.forEach((item, index) => {
+        setOne.add(item.slice(2, 5) + '-' + item.slice(7, 11))
+        setTwo.add(item.slice(0, 2))
+        setThree.add(item.slice(5, 7))
+      })
+      let newsArrs = Array.from(setOne)
+      if (Array.from(setOne).length < 2) {
+        newsArrs.forEach((item, index) => {
+          list1.push(item.split('-')[0])
+          list2.push(item.split('-')[1])
+        })
+        let str = Array.from(setTwo).join('/') + list1.join('') + Array.from(setThree).join('/') + list2.join('')
+        return str
+      } else {
+        return '用户手输'
+      }
+    }
+    setArr(arr)
+  </script>
 </body>
 
 </html>

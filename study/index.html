@@ -1,68 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
-	</head>
-	<style type="text/css">
-		.box {
-			position: relative;
-			left: 0;
-			top: 0;
-			width: 300px;
-			height: 300px;
-		}
+<head>
+  <meta charset="UTF-8">
+  <title>Excel批量处理</title>
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
+</head>
 
-		#box2,
-		#boxs {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-
-		#boxs {
-			background: red;
-			z-index: 2;
-		}
-
-		#box2 {
-			background: black;
-		}
-	</style>
-	<body>
-		<div class="box">
-			<div id="boxs"></div>
-			<div id="box2"></div>
-		</div>
-		<script>
-			let drag = false
-			boxs.onmousedown = function(ev) {
-				drag = true;
-				this.mouseStartX = ev.pageX;
-				this.mouseStartY = ev.pageY;
-				this.startX = boxs.offsetLeft;
-				this.startY = boxs.offsetTop;
-			}
-			boxs.onmousemove = function(ev) {
-				if (!drag) return false;
-				let curLeft = ev.pageX - this.mouseStartX + this.startX;
-				let curTop = ev.pageY - this.mouseStartY + this.startY;
-				boxs.style.left = `${curLeft}px`;
-				boxs.style.top = `${curTop}px`;
-			}
-			boxs.onmouseup = function(ev) {
-				drag = false;
-				let curLeft = ev.pageX - this.mouseStartX + this.startX;
-				let curTop = ev.pageY - this.mouseStartY + this.startY;
-				box2.style.left = `${curLeft}px`;
-				box2.style.top = `${curTop}px`;
-			}
-		</script>
-	</body>
+<body>
+  <input type="file" id="excel-file">
+  <script>
+    var count = 0;
+    //给input标签绑定change事件，一上传选中的.xls文件就会触发该函数
+    $('#excel-file').change(function (e) {
+      var files = e.target.files;
+      var fileReader = new FileReader();
+      fileReader.onload = function (ev) {
+        try {
+          var data = ev.target.result
+          var workbook = XLSX.read(data, {
+            type: 'binary'
+          }) // 以二进制流方式读取得到整份excel表格对象
+          var persons = []; // 存储获取到的数据
+        } catch (e) {
+          console.log('文件类型不正确');
+          return;
+        }
+        var fromTo = '';
+        var i = 0;
+        var timer = setInterval(function () {
+          var hiddenIFrameID = 'hiddenDownloader' + i++;
+          var iframe = document.createElement('iframe');
+          iframe.id = hiddenIFrameID;
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
+          iframe.src = "http://" + workbook.Strings[i].t;
+          if (i > (+workbook.Strings.length + 1)) {
+            clearInterval(timer);
+          }
+        }, 500)
+        $("#area").val(JSON.stringify(persons));
+      };
+      // 以二进制方式打开文件
+      fileReader.readAsBinaryString(files[0]);
+    });
+  </script>
+</body>
 
 </html>
